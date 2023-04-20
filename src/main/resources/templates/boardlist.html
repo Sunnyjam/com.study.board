@@ -34,9 +34,19 @@
               </tr>
           </tbody>
       </table>
+
+        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+            <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+        </th:block>
+        <form th:action="@{/board/list}" method="get">
+            <input type="text" name="searchKeyword">
+            <button type="submit">검색</button>
+        </form>
     </div>
 
 </body>
 </html>
 <!-- each= list가 board에서 없어질 때 까지 반복한다-->
 <!--/board/view로 보내주는데 id값을 담아서 보내주는데 board.id= localhost:8080/board/view?id=board.id -->
+<!--searchKeyword가 있을 때 searchKeyword = ${param.searchKeyword}를 사용하여 새로운 페이지를 보여준다. -->
